@@ -1,6 +1,7 @@
 import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from typing import Protocol
 
 import gymnasium as gym
 import numpy as np
@@ -65,7 +66,20 @@ class PolicySmoothing(Updater):
         return new_policy
 
 
-class CEMAgent:
+class Policy(Protocol):
+    def get_action(self, state: int) -> int:
+        raise NotImplementedError
+
+
+class DeterministicPolicy(Policy):
+    def __init__(self, policy: list[int]):
+        self.policy = policy
+
+    def get_action(self, state: int) -> int:
+        return self.policy[state]
+
+
+class CEMAgent(Policy):
     def __init__(self, states: int, actions: int, elite_quantile: float, updater: Updater):
         assert actions > 0
         assert 0 < elite_quantile < 1
@@ -89,17 +103,30 @@ class CEMAgent:
                 statistics[step.state, step.action] += 1
         self.policy = self.updater.update(self.policy, statistics)
 
+    def sample_policy(self) -> DeterministicPolicy:
+        return DeterministicPolicy([np.random.choice(self.actions, p=self.policy[state]) for state in range(len(self.policy))])
 
-def train(env: gym.Env, agent: CEMAgent, trajectories_count: int, max_steps: int, epochs: int):
+
+def train(env: gym.Env, agent: CEMAgent, trajectories_count: int, max_steps: int, epochs: int, sample_count: int):
     for epoch in range(epochs):
-        trajectories = [play(env, agent, max_steps) for _ in range(trajectories_count)]
+        if sample_count > 0:
+            trajectories = []
+            for _ in range(trajectories_count):
+                trajectories_batch = []
+                policy = agent.sample_policy()
+                for _ in range(sample_count):
+                    trajectories_batch.append(play(env, policy, max_steps))
+                mean_reward = np.mean([t.total_reward for t in trajectories_batch])
+                for trajectory in trajectories_batch:
+                    trajectory.total_reward = mean_reward
+                trajectories.extend(trajectories_batch)
+        else:
+            trajectories = [play(env, agent, max_steps) for _ in range(trajectories_count)]
         print(f"epoch: {epoch}, mean reward: {np.mean([t.total_reward for t in trajectories])}")
-        # play(env, agent, max_steps, True)
-        # print(agent.policy)
         agent.fit(trajectories)
 
 
-def play(env: gym.Env, agent: CEMAgent, max_steps: int, visualize: bool = False) -> Trajectory:
+def play(env: gym.Env, agent: Policy, max_steps: int) -> Trajectory:
     state = env.reset()[0]
 
     steps = []
@@ -108,10 +135,6 @@ def play(env: gym.Env, agent: CEMAgent, max_steps: int, visualize: bool = False)
         action = agent.get_action(state)
         next_state, reward, terminated, truncated, _ = env.step(action)
         steps.append(Step(state, action, reward))
-
-        if visualize:
-            print(env.render())
-            time.sleep(0.5)
 
         if terminated or truncated:
             break
@@ -122,8 +145,8 @@ def play(env: gym.Env, agent: CEMAgent, max_steps: int, visualize: bool = False)
 
 def main():
     env = gym.make("Taxi-v3")
-    agent = CEMAgent(env.observation_space.n, env.action_space.n, 0.25, PolicySmoothing(0.9))
-    train(env, agent, 1000, 100, 1000)
+    agent = CEMAgent(env.observation_space.n, env.action_space.n, 0.25, PolicySmoothing(0.8))
+    train(env, agent, 1000, 100, 100, 10)
 
 
 if __name__ == "__main__":
