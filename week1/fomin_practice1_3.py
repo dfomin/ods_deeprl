@@ -4,6 +4,8 @@ from typing import Protocol, Optional
 
 import gymnasium as gym
 import numpy as np
+import pandas as pd
+from tqdm import tqdm
 
 
 @dataclass
@@ -113,7 +115,8 @@ class CEMAgent(Policy):
         return DeterministicPolicy([np.random.choice(self.actions, p=self.policy[state]) for state in range(len(self.policy))])
 
 
-def train(env: gym.Env, agent: CEMAgent, trajectories_count: int, max_steps: int, epochs: int, sample_count: int, random_first_state: bool):
+def train(env: gym.Env, agent: CEMAgent, trajectories_count: int, max_steps: int, epochs: int, sample_count: int, random_first_state: bool) -> list:
+    result = []
     for epoch in range(epochs):
         if sample_count > 0:
             trajectories = []
@@ -141,6 +144,8 @@ def train(env: gym.Env, agent: CEMAgent, trajectories_count: int, max_steps: int
         agent.fit(trajectories)
         evaluation = [evaluate(env, agent, max_steps) for _ in range(100)]
         print(f"epoch: {epoch}, mean reward: {np.mean([e[0] for e in evaluation])}, delivered: {sum(e[1] for e in evaluation)}")
+        result.append((epoch, np.mean([e[0] for e in evaluation]), sum(e[1] for e in evaluation)))
+    return result
 
 
 def play(env: gym.Env, agent: Policy, max_steps: int, initial_state: Optional[int] = None) -> Trajectory:
@@ -181,8 +186,38 @@ def evaluate(env: gym.Env, agent: Policy, max_steps: int) -> (float, bool):
 
 def main():
     env = gym.make("Taxi-v3")
-    agent = CEMAgent(env.observation_space.n, env.action_space.n, 0.2, PolicySmoothing(0.5))
-    train(env, agent, 1000, 100, 100, 5, True)
+    trajectories_count = 1000
+    alpha = 0.5
+    output = []
+    elite_quantiles = [0.2, 0.5, 0.8]
+    sample_count = 5
+    for elite_quantile in tqdm(elite_quantiles):
+        agent = CEMAgent(env.observation_space.n, env.action_space.n, elite_quantile, PolicySmoothing(alpha))
+        result = train(env, agent, trajectories_count, 100, 100, sample_count, False)
+        for item in result:
+            output.append({
+                "epoch": item[0],
+                "reward": item[1],
+                "delivered": item[2],
+                "quantile": elite_quantile,
+                "trajectories": trajectories_count,
+                "type": "Averaging",
+                "sample_count": sample_count
+            })
+    for elite_quantile in tqdm(elite_quantiles):
+        agent = CEMAgent(env.observation_space.n, env.action_space.n, elite_quantile, PolicySmoothing(alpha))
+        result = train(env, agent, trajectories_count, 100, 100, sample_count, True)
+        for item in result:
+            output.append({
+                "epoch": item[0],
+                "reward": item[1],
+                "delivered": item[2],
+                "quantile": elite_quantile,
+                "trajectories": trajectories_count,
+                "type": "Random start",
+                "sample_count": sample_count
+            })
+    pd.DataFrame(output).to_csv("task3.csv", index=False)
 
 
 if __name__ == "__main__":

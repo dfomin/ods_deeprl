@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Protocol, Optional
 
 import gymnasium as gym
 import numpy as np
+import pandas as pd
+from tqdm import tqdm
 
 
 @dataclass
@@ -72,20 +73,7 @@ class PolicySmoothing(Updater):
         return new_policy
 
 
-class Policy(Protocol):
-    def get_action(self, state: int) -> int:
-        raise NotImplementedError
-
-
-class DeterministicPolicy(Policy):
-    def __init__(self, policy: list[int]):
-        self.policy = policy
-
-    def get_action(self, state: int) -> int:
-        return self.policy[state]
-
-
-class CEMAgent(Policy):
+class CEMAgent:
     def __init__(self, states: int, actions: int, elite_quantile: float, updater: Updater):
         assert actions > 0
         assert 0 < elite_quantile < 1
@@ -109,45 +97,19 @@ class CEMAgent(Policy):
                 statistics[step.state, step.action] += 1
         self.policy = self.updater.update(self.policy, statistics)
 
-    def sample_policy(self) -> DeterministicPolicy:
-        return DeterministicPolicy([np.random.choice(self.actions, p=self.policy[state]) for state in range(len(self.policy))])
 
-
-def train(env: gym.Env, agent: CEMAgent, trajectories_count: int, max_steps: int, epochs: int, sample_count: int, random_first_state: bool):
+def train(env: gym.Env, agent: CEMAgent, trajectories_count: int, max_steps: int, epochs: int) -> list:
+    result = []
     for epoch in range(epochs):
-        if sample_count > 0:
-            trajectories = []
-            for _ in range(trajectories_count):
-                trajectories_batch = []
-                if random_first_state:
-                    state = env.reset()[0]
-                    action = np.random.choice(env.action_space.n)
-                    next_state, reward, terminated, truncated, _ = env.step(action)
-                    for _ in range(sample_count):
-                        trajectory = play(env, agent, max_steps, next_state)
-                        trajectory.steps.insert(0, Step(state, action, reward))
-                        trajectory.total_reward += reward
-                        trajectories_batch.append(trajectory)
-                else:
-                    policy = agent.sample_policy()
-                    for _ in range(sample_count):
-                        trajectories_batch.append(play(env, policy, max_steps))
-                mean_reward = np.mean([t.total_reward for t in trajectories_batch])
-                for trajectory in trajectories_batch:
-                    trajectory.total_reward = mean_reward
-                trajectories.extend(trajectories_batch)
-        else:
-            trajectories = [play(env, agent, max_steps) for _ in range(trajectories_count)]
+        trajectories = [play(env, agent, max_steps) for _ in range(trajectories_count)]
         agent.fit(trajectories)
         evaluation = [evaluate(env, agent, max_steps) for _ in range(100)]
-        print(f"epoch: {epoch}, mean reward: {np.mean([e[0] for e in evaluation])}, delivered: {sum(e[1] for e in evaluation)}")
+        result.append((epoch, np.mean([e[0] for e in evaluation]), sum(e[1] for e in evaluation)))
+    return result
 
 
-def play(env: gym.Env, agent: Policy, max_steps: int, initial_state: Optional[int] = None) -> Trajectory:
-    if initial_state:
-        state = initial_state
-    else:
-        state = env.reset()[0]
+def play(env: gym.Env, agent: CEMAgent, max_steps: int) -> Trajectory:
+    state = env.reset()[0]
 
     steps = []
 
@@ -163,7 +125,7 @@ def play(env: gym.Env, agent: Policy, max_steps: int, initial_state: Optional[in
     return Trajectory(steps)
 
 
-def evaluate(env: gym.Env, agent: Policy, max_steps: int) -> (float, bool):
+def evaluate(env: gym.Env, agent: CEMAgent, max_steps: int) -> (float, bool):
     state = env.reset()[0]
     total_reward = 0
     delivered = False
@@ -181,8 +143,40 @@ def evaluate(env: gym.Env, agent: Policy, max_steps: int) -> (float, bool):
 
 def main():
     env = gym.make("Taxi-v3")
-    agent = CEMAgent(env.observation_space.n, env.action_space.n, 0.2, PolicySmoothing(0.5))
-    train(env, agent, 1000, 100, 100, 5, True)
+    elite_quantile = 0.2
+    trajectories_count = 1000
+    output = []
+    # Laplace
+    alphas = [0.1, 0.5, 1, 2]
+    for alpha in tqdm(alphas):
+        agent = CEMAgent(env.observation_space.n, env.action_space.n, elite_quantile, LaplaceSmoothing(alpha))
+        result = train(env, agent, trajectories_count, 100, 100)
+        for item in result:
+            output.append({
+                "epoch": item[0],
+                "reward": item[1],
+                "delivered": item[2],
+                "quantile": elite_quantile,
+                "trajectories": trajectories_count,
+                "smoothing": "Laplace",
+                "alpha": alpha
+            })
+    # Policy
+    alphas = [0.25, 0.5, 0.75, 0.9]
+    for alpha in tqdm(alphas):
+        agent = CEMAgent(env.observation_space.n, env.action_space.n, elite_quantile, PolicySmoothing(alpha))
+        result = train(env, agent, trajectories_count, 100, 100)
+        for item in result:
+            output.append({
+                "epoch": item[0],
+                "reward": item[1],
+                "delivered": item[2],
+                "quantile": elite_quantile,
+                "trajectories": trajectories_count,
+                "smoothing": "Policy",
+                "alpha": alpha
+            })
+    pd.DataFrame(output).to_csv("task2.csv", index=False)
 
 
 if __name__ == "__main__":
