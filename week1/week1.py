@@ -181,8 +181,8 @@ def evaluate(env: gym.Env, agent: Policy, max_steps: int) -> (float, bool):
 
 def main():
     env = gym.make("Taxi-v3")
-    agent = CEMAgent(env.observation_space.n, env.action_space.n, 0.2, PolicySmoothing(0.5))
-    train(env, agent, 1000, 100, 100, 5, True)
+    agent = CEMAgent(env.observation_space.n, env.action_space.n, 0.6, LaplaceSmoothing(0.1))
+    train(env, agent, 400, 100, 100, 20, False)
 
 
 if __name__ == "__main__":
