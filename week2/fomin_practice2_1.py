@@ -1,10 +1,13 @@
+import concurrent
 from dataclasses import dataclass
 
 import gymnasium as gym
 import numpy as np
+import pandas as pd
 import torch.optim
 from torch import nn
 from torch.utils.data import DataLoader, Dataset
+from tqdm import tqdm
 
 
 @dataclass
@@ -48,19 +51,16 @@ class Network(nn.Module):
 
         x = self.layers[0](x)
         for i in range(1, len(self.layers)):
-            # x = nn.ReLU()(x)
-            x = nn.Tanh()(x)
+            x = nn.LeakyReLU()(x)
             x = self.layers[i](x)
         return nn.Softmax(dim=1)(x)
 
 
 class DeepCEMAgent:
-    def __init__(self, state_dim: int, actions: int, quantile: float, epsilon_min: float = 1e-2, epsilon_decay: float = 0.99):
+    def __init__(self, state_dim: int, actions: int, quantile: float):
         self.actions = actions
-        self.model = Network(state_dim, actions, [512, 512])
+        self.model = Network(state_dim, actions, [64, 64])
         self.epsilon = 1
-        self.epsilon_min = epsilon_min
-        self.epsilon_decay = epsilon_decay
         self.loss = nn.CrossEntropyLoss()
         self.elite_quantile = quantile
 
@@ -68,8 +68,6 @@ class DeepCEMAgent:
         state = np.array([state])
         pred = self.model(torch.tensor(state))[0].detach().numpy()
         if eval:
-            # print(pred)
-            # return pred.argmax()
             return np.random.choice(range(self.actions), p=pred)
         probs = (1 - self.epsilon) * pred + self.epsilon / self.actions
         probs /= probs.sum()
@@ -91,24 +89,32 @@ class DeepCEMAgent:
         actions = torch.LongTensor(np.array(actions))
 
         dataset = ActionStateDataset(states, actions)
-        dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
+        dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
         for states_batch, actions_batch in dataloader:
             self.model.optimizer.zero_grad()
             loss = self.loss(self.model(states_batch), actions_batch)
             loss.backward()
             self.model.optimizer.step()
-
-        # self.epsilon = max(self.epsilon_min, self.epsilon * self.epsilon_decay)
         self.epsilon = 1 / (1 / self.epsilon + 1)
 
 
-def train(env: gym.Env, agent: DeepCEMAgent, trajectories_count: int, max_steps: int, epochs: int):
+def run_parallel(env, agent, max_steps, trajectories_count):
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        futures = [executor.submit(play, env, agent, max_steps) for _ in range(trajectories_count)]
+        trajectories = [future.result() for future in concurrent.futures.as_completed(futures)]
+    return trajectories
+
+
+def train(env: gym.Env, agent: DeepCEMAgent, trajectories_count: int, max_steps: int, epochs: int) -> list:
+    result = []
     for epoch in range(epochs):
-        trajectories = [play(env, agent, max_steps) for _ in range(trajectories_count)]
+        # trajectories = [play(env, agent, max_steps) for _ in range(trajectories_count)]
+        trajectories = run_parallel(env, agent, max_steps, trajectories_count)
         agent.fit(trajectories)
-        mean_reward = np.mean([evaluate(env, agent, max_steps) for _ in range(10)])
-        print(f"epoch: {epoch}, mean reward: {mean_reward}")
-        # play(gym.make("LunarLander-v2", render_mode="human"), agent, max_steps, True)
+        evaluation = [evaluate(env, agent, max_steps) for _ in range(100)]
+        result.append((epoch, np.mean(evaluation)))
+        # play(gym.make("Acrobot-v1", render_mode="human"), agent, max_steps, True)
+    return result
 
 
 def play(env: gym.Env, agent: DeepCEMAgent, max_steps: int, greedy: bool = False) -> Trajectory:
@@ -142,9 +148,22 @@ def evaluate(env: gym.Env, agent: DeepCEMAgent, max_steps: int) -> float:
 
 
 def main():
-    env = gym.make("LunarLander-v2")
-    agent = DeepCEMAgent(env.observation_space.shape[0], env.action_space.n, 0.8)
-    train(env, agent, 1000, 100, 100)
+    env = gym.make("Acrobot-v1")
+    elite_quantiles = [x / 10 for x in range(1, 10)]
+    trajectories_counts = [30, 100, 300, 1000]
+    output = []
+    for quantile in tqdm(elite_quantiles):
+        for count in tqdm(trajectories_counts, leave=False):
+            agent = DeepCEMAgent(env.observation_space.shape[0], env.action_space.n, quantile)
+            result = train(env, agent, count, 500, 20)
+            for item in result:
+                output.append({
+                    "epoch": item[0],
+                    "reward": item[1],
+                    "quantile": quantile,
+                    "trajectories": count
+                })
+    pd.DataFrame(output).to_csv("task1.csv", index=False)
 
 
 if __name__ == "__main__":
