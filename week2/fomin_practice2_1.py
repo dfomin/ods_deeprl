@@ -108,12 +108,10 @@ def run_parallel(env, agent, max_steps, trajectories_count):
 def train(env: gym.Env, agent: DeepCEMAgent, trajectories_count: int, max_steps: int, epochs: int) -> list:
     result = []
     for epoch in range(epochs):
-        # trajectories = [play(env, agent, max_steps) for _ in range(trajectories_count)]
         trajectories = run_parallel(env, agent, max_steps, trajectories_count)
         agent.fit(trajectories)
         evaluation = [evaluate(env, agent, max_steps) for _ in range(100)]
         result.append((epoch, np.mean(evaluation)))
-        # play(gym.make("Acrobot-v1", render_mode="human"), agent, max_steps, True)
     return result
 
 

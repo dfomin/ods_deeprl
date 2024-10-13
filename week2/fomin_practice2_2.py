@@ -53,7 +53,6 @@ class Network(nn.Module):
         for i in range(1, len(self.layers)):
             x = nn.LeakyReLU()(x)
             x = self.layers[i](x)
-        # return torch.clamp(x, -1, 1)
         return torch.tanh(x) * 2
 
 
@@ -97,7 +96,6 @@ class DeepCEMAgent:
             loss = self.loss(self.model(states_batch), actions_batch)
             loss.backward()
             self.model.optimizer.step()
-        # self.epsilon = 1 / (1 / self.epsilon + 1)
         self.epsilon = max(self.epsilon_min, self.epsilon * self.epsilon_decay)
 
 
@@ -116,7 +114,6 @@ def train(env: gym.Env, agent: DeepCEMAgent, trajectories_count: int, max_steps:
         evaluation = [evaluate(env, agent, max_steps) for _ in range(100)]
         result.append((epoch, np.mean(evaluation)))
         print(f"epoch: {epoch}, mean reward: {np.mean(evaluation)}")
-        # play(gym.make("Pendulum-v1", render_mode="human"), agent, max_steps, True)
     return result
 
 
@@ -153,9 +150,7 @@ def evaluate(env: gym.Env, agent: DeepCEMAgent, max_steps: int) -> float:
 def main():
     env = gym.make("Pendulum-v1")
     elite_quantiles = [x / 10 for x in range(1, 10)]
-    # elite_quantiles = [0.9]
     trajectories_counts = [30, 100, 300, 1000]
-    # trajectories_counts = [1000]
     output = []
     for quantile in tqdm(elite_quantiles):
         for count in tqdm(trajectories_counts, leave=False):
