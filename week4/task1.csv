@@ -1,0 +1,401 @@
+epoch,reward,algorithm
+0,-100.0,Cross-entropy
+1,-344.926,Cross-entropy
+2,-267.652,Cross-entropy
+3,-223.642,Cross-entropy
+4,-181.432,Cross-entropy
+5,-142.048,Cross-entropy
+6,-152.425,Cross-entropy
+7,-142.741,Cross-entropy
+8,-165.052,Cross-entropy
+9,-127.783,Cross-entropy
+10,-124.273,Cross-entropy
+11,-110.746,Cross-entropy
+12,-113.374,Cross-entropy
+13,-119.368,Cross-entropy
+14,-100.0,Cross-entropy
+15,-99.11,Cross-entropy
+16,-98.891,Cross-entropy
+17,-102.673,Cross-entropy
+18,-100.0,Cross-entropy
+19,-100.0,Cross-entropy
+20,-100.0,Cross-entropy
+21,-100.0,Cross-entropy
+22,-100.0,Cross-entropy
+23,-100.0,Cross-entropy
+24,-100.0,Cross-entropy
+25,-100.0,Cross-entropy
+26,-100.0,Cross-entropy
+27,-100.0,Cross-entropy
+28,-100.0,Cross-entropy
+29,-100.0,Cross-entropy
+30,-100.0,Cross-entropy
+31,-98.649,Cross-entropy
+32,-94.921,Cross-entropy
+33,-91.168,Cross-entropy
+34,-94.04,Cross-entropy
+35,-92.156,Cross-entropy
+36,-91.332,Cross-entropy
+37,-88.645,Cross-entropy
+38,-88.525,Cross-entropy
+39,-93.166,Cross-entropy
+40,-96.462,Cross-entropy
+41,-95.676,Cross-entropy
+42,-97.093,Cross-entropy
+43,-90.975,Cross-entropy
+44,-87.114,Cross-entropy
+45,-76.892,Cross-entropy
+46,-61.979,Cross-entropy
+47,-47.057,Cross-entropy
+48,-52.036,Cross-entropy
+49,-56.034,Cross-entropy
+50,-47.651,Cross-entropy
+51,-41.787,Cross-entropy
+52,-38.216,Cross-entropy
+53,-43.099,Cross-entropy
+54,-32.356,Cross-entropy
+55,-40.866,Cross-entropy
+56,-4.758,Cross-entropy
+57,-4.191,Cross-entropy
+58,4.502,Cross-entropy
+59,6.099,Cross-entropy
+60,5.688,Cross-entropy
+61,6.754,Cross-entropy
+62,7.144,Cross-entropy
+63,6.597,Cross-entropy
+64,6.593,Cross-entropy
+65,7.098,Cross-entropy
+66,7.329,Cross-entropy
+67,6.674,Cross-entropy
+68,7.212,Cross-entropy
+69,7.61,Cross-entropy
+70,7.757,Cross-entropy
+71,7.672,Cross-entropy
+72,7.923,Cross-entropy
+73,7.815,Cross-entropy
+74,7.945,Cross-entropy
+75,7.844,Cross-entropy
+76,7.832,Cross-entropy
+77,7.037,Cross-entropy
+78,7.924,Cross-entropy
+79,7.919,Cross-entropy
+80,7.885,Cross-entropy
+81,7.902,Cross-entropy
+82,8.087,Cross-entropy
+83,7.872,Cross-entropy
+84,7.825,Cross-entropy
+85,8.021,Cross-entropy
+86,7.962,Cross-entropy
+87,7.812,Cross-entropy
+88,7.898,Cross-entropy
+89,7.573,Cross-entropy
+90,7.204,Cross-entropy
+91,7.704,Cross-entropy
+92,7.465,Cross-entropy
+93,6.686,Cross-entropy
+94,6.917,Cross-entropy
+95,7.5,Cross-entropy
+96,7.085,Cross-entropy
+97,7.622,Cross-entropy
+98,7.199,Cross-entropy
+99,7.131,Cross-entropy
+0,-100.0,MonteCarlo
+1,-352.792,MonteCarlo
+2,-224.956,MonteCarlo
+3,-214.651,MonteCarlo
+4,-139.592,MonteCarlo
+5,-107.946,MonteCarlo
+6,-98.27,MonteCarlo
+7,-94.554,MonteCarlo
+8,-81.474,MonteCarlo
+9,-88.802,MonteCarlo
+10,-87.891,MonteCarlo
+11,-86.014,MonteCarlo
+12,-78.519,MonteCarlo
+13,-84.092,MonteCarlo
+14,-80.533,MonteCarlo
+15,-81.761,MonteCarlo
+16,-80.892,MonteCarlo
+17,-83.63,MonteCarlo
+18,-80.753,MonteCarlo
+19,-75.802,MonteCarlo
+20,-70.303,MonteCarlo
+21,-67.011,MonteCarlo
+22,-71.459,MonteCarlo
+23,-63.939,MonteCarlo
+24,-65.856,MonteCarlo
+25,-65.529,MonteCarlo
+26,-65.927,MonteCarlo
+27,-64.9,MonteCarlo
+28,-61.44,MonteCarlo
+29,-63.237,MonteCarlo
+30,-63.366,MonteCarlo
+31,-64.353,MonteCarlo
+32,-62.371,MonteCarlo
+33,-56.992,MonteCarlo
+34,-56.804,MonteCarlo
+35,-57.45,MonteCarlo
+36,-59.192,MonteCarlo
+37,-55.762,MonteCarlo
+38,-55.05,MonteCarlo
+39,-57.053,MonteCarlo
+40,-55.5,MonteCarlo
+41,-54.607,MonteCarlo
+42,-58.133,MonteCarlo
+43,-54.582,MonteCarlo
+44,-59.055,MonteCarlo
+45,-56.547,MonteCarlo
+46,-56.319,MonteCarlo
+47,-55.221,MonteCarlo
+48,-55.187,MonteCarlo
+49,-56.128,MonteCarlo
+50,-53.24,MonteCarlo
+51,-52.375,MonteCarlo
+52,-55.805,MonteCarlo
+53,-56.602,MonteCarlo
+54,-58.864,MonteCarlo
+55,-55.898,MonteCarlo
+56,-54.223,MonteCarlo
+57,-57.282,MonteCarlo
+58,-53.688,MonteCarlo
+59,-59.479,MonteCarlo
+60,-53.572,MonteCarlo
+61,-57.163,MonteCarlo
+62,-57.194,MonteCarlo
+63,-56.406,MonteCarlo
+64,-56.69,MonteCarlo
+65,-56.709,MonteCarlo
+66,-56.493,MonteCarlo
+67,-54.694,MonteCarlo
+68,-56.197,MonteCarlo
+69,-56.621,MonteCarlo
+70,-59.084,MonteCarlo
+71,-52.938,MonteCarlo
+72,-58.503,MonteCarlo
+73,-55.919,MonteCarlo
+74,-58.146,MonteCarlo
+75,-56.571,MonteCarlo
+76,-55.387,MonteCarlo
+77,-53.379,MonteCarlo
+78,-58.118,MonteCarlo
+79,-56.937,MonteCarlo
+80,-57.153,MonteCarlo
+81,-56.77,MonteCarlo
+82,-54.792,MonteCarlo
+83,-56.241,MonteCarlo
+84,-56.482,MonteCarlo
+85,-58.476,MonteCarlo
+86,-55.707,MonteCarlo
+87,-57.237,MonteCarlo
+88,-56.878,MonteCarlo
+89,-54.537,MonteCarlo
+90,-55.828,MonteCarlo
+91,-54.142,MonteCarlo
+92,-54.988,MonteCarlo
+93,-55.239,MonteCarlo
+94,-58.179,MonteCarlo
+95,-56.639,MonteCarlo
+96,-56.181,MonteCarlo
+97,-58.499,MonteCarlo
+98,-55.406,MonteCarlo
+99,-56.361,MonteCarlo
+0,-102.7,SARSA
+1,-101.8,SARSA
+2,-89.127,SARSA
+3,-102.454,SARSA
+4,-133.444,SARSA
+5,-114.151,SARSA
+6,-232.207,SARSA
+7,-143.819,SARSA
+8,-78.553,SARSA
+9,-186.571,SARSA
+10,-54.003,SARSA
+11,-85.218,SARSA
+12,-239.592,SARSA
+13,-179.468,SARSA
+14,-68.249,SARSA
+15,-106.461,SARSA
+16,-118.504,SARSA
+17,-99.303,SARSA
+18,-82.259,SARSA
+19,-124.376,SARSA
+20,-123.441,SARSA
+21,-115.562,SARSA
+22,-172.433,SARSA
+23,-105.637,SARSA
+24,-182.23,SARSA
+25,-88.656,SARSA
+26,-112.544,SARSA
+27,-49.023,SARSA
+28,-26.141,SARSA
+29,-142.062,SARSA
+30,-62.715,SARSA
+31,-166.682,SARSA
+32,-26.061,SARSA
+33,-132.951,SARSA
+34,-66.743,SARSA
+35,-75.366,SARSA
+36,-119.215,SARSA
+37,-148.152,SARSA
+38,-143.39,SARSA
+39,-125.572,SARSA
+40,-95.688,SARSA
+41,-100.272,SARSA
+42,-65.548,SARSA
+43,-114.838,SARSA
+44,-22.36,SARSA
+45,-300.931,SARSA
+46,-115.362,SARSA
+47,-32.383,SARSA
+48,-38.342,SARSA
+49,-35.542,SARSA
+50,-24.036,SARSA
+51,-90.893,SARSA
+52,-56.778,SARSA
+53,-45.831,SARSA
+54,-30.053,SARSA
+55,-54.602,SARSA
+56,-11.325,SARSA
+57,-38.814,SARSA
+58,-107.81,SARSA
+59,-43.008,SARSA
+60,-47.254,SARSA
+61,-85.395,SARSA
+62,-29.626,SARSA
+63,-60.36,SARSA
+64,-42.23,SARSA
+65,-40.445,SARSA
+66,-25.768,SARSA
+67,-69.679,SARSA
+68,-42.955,SARSA
+69,-28.576,SARSA
+70,-37.608,SARSA
+71,1.589,SARSA
+72,-13.366,SARSA
+73,-31.228,SARSA
+74,-21.109,SARSA
+75,-30.932,SARSA
+76,-42.351,SARSA
+77,-43.816,SARSA
+78,-6.063,SARSA
+79,-40.124,SARSA
+80,-28.908,SARSA
+81,-56.299,SARSA
+82,-19.804,SARSA
+83,-31.858,SARSA
+84,-16.532,SARSA
+85,-2.066,SARSA
+86,-13.2,SARSA
+87,-15.897,SARSA
+88,-29.7,SARSA
+89,-18.32,SARSA
+90,7.069,SARSA
+91,-20.831,SARSA
+92,7.782,SARSA
+93,-14.148,SARSA
+94,-9.128,SARSA
+95,3.194,SARSA
+96,-4.788,SARSA
+97,7.653,SARSA
+98,7.789,SARSA
+99,-2.48,SARSA
+0,-130.348,Q Learning
+1,-9.369,Q Learning
+2,8.008,Q Learning
+3,7.972,Q Learning
+4,8.042,Q Learning
+5,7.932,Q Learning
+6,7.869,Q Learning
+7,7.927,Q Learning
+8,7.94,Q Learning
+9,8.067,Q Learning
+10,7.851,Q Learning
+11,8.077,Q Learning
+12,7.971,Q Learning
+13,8.01,Q Learning
+14,7.927,Q Learning
+15,7.893,Q Learning
+16,7.926,Q Learning
+17,7.98,Q Learning
+18,7.897,Q Learning
+19,7.977,Q Learning
+20,8.038,Q Learning
+21,7.994,Q Learning
+22,8.045,Q Learning
+23,7.896,Q Learning
+24,7.809,Q Learning
+25,8.009,Q Learning
+26,8.082,Q Learning
+27,7.745,Q Learning
+28,7.972,Q Learning
+29,7.917,Q Learning
+30,7.963,Q Learning
+31,7.883,Q Learning
+32,7.995,Q Learning
+33,7.879,Q Learning
+34,7.871,Q Learning
+35,7.996,Q Learning
+36,7.832,Q Learning
+37,7.881,Q Learning
+38,7.985,Q Learning
+39,7.973,Q Learning
+40,7.86,Q Learning
+41,7.858,Q Learning
+42,7.979,Q Learning
+43,7.873,Q Learning
+44,8.031,Q Learning
+45,7.891,Q Learning
+46,7.926,Q Learning
+47,7.887,Q Learning
+48,7.833,Q Learning
+49,7.986,Q Learning
+50,7.85,Q Learning
+51,7.866,Q Learning
+52,7.928,Q Learning
+53,7.915,Q Learning
+54,7.973,Q Learning
+55,8.052,Q Learning
+56,7.895,Q Learning
+57,7.914,Q Learning
+58,8.022,Q Learning
+59,7.958,Q Learning
+60,7.951,Q Learning
+61,8.037,Q Learning
+62,7.787,Q Learning
+63,7.812,Q Learning
+64,8.017,Q Learning
+65,8.004,Q Learning
+66,8.017,Q Learning
+67,7.832,Q Learning
+68,7.857,Q Learning
+69,8.084,Q Learning
+70,8.158,Q Learning
+71,8.086,Q Learning
+72,7.953,Q Learning
+73,7.948,Q Learning
+74,8.058,Q Learning
+75,7.907,Q Learning
+76,8.013,Q Learning
+77,7.928,Q Learning
+78,7.951,Q Learning
+79,7.864,Q Learning
+80,7.929,Q Learning
+81,7.952,Q Learning
+82,7.984,Q Learning
+83,8.056,Q Learning
+84,7.993,Q Learning
+85,7.927,Q Learning
+86,8.027,Q Learning
+87,8.004,Q Learning
+88,7.964,Q Learning
+89,7.942,Q Learning
+90,7.742,Q Learning
+91,7.852,Q Learning
+92,8.002,Q Learning
+93,7.881,Q Learning
+94,7.935,Q Learning
+95,7.867,Q Learning
+96,7.812,Q Learning
+97,7.839,Q Learning
+98,7.727,Q Learning
+99,7.996,Q Learning

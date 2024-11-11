@@ -1,0 +1,61 @@
+epoch,reward,algorithm
+0,-498.53,MonteCarlo
+1,-500.0,MonteCarlo
+2,-500.0,MonteCarlo
+3,-498.3,MonteCarlo
+4,-500.0,MonteCarlo
+5,-500.0,MonteCarlo
+6,-500.0,MonteCarlo
+7,-497.01,MonteCarlo
+8,-499.49,MonteCarlo
+9,-500.0,MonteCarlo
+10,-498.89,MonteCarlo
+11,-500.0,MonteCarlo
+12,-500.0,MonteCarlo
+13,-499.43,MonteCarlo
+14,-499.8,MonteCarlo
+15,-499.93,MonteCarlo
+16,-500.0,MonteCarlo
+17,-500.0,MonteCarlo
+18,-499.95,MonteCarlo
+19,-500.0,MonteCarlo
+0,-498.73,SARSA
+1,-498.52,SARSA
+2,-497.61,SARSA
+3,-497.51,SARSA
+4,-493.32,SARSA
+5,-498.97,SARSA
+6,-496.4,SARSA
+7,-491.27,SARSA
+8,-481.46,SARSA
+9,-483.46,SARSA
+10,-457.9,SARSA
+11,-490.26,SARSA
+12,-450.56,SARSA
+13,-428.32,SARSA
+14,-466.76,SARSA
+15,-469.82,SARSA
+16,-458.07,SARSA
+17,-494.66,SARSA
+18,-391.26,SARSA
+19,-343.47,SARSA
+0,-499.95,Q Learning
+1,-498.63,Q Learning
+2,-496.8,Q Learning
+3,-498.17,Q Learning
+4,-498.75,Q Learning
+5,-494.12,Q Learning
+6,-497.39,Q Learning
+7,-493.83,Q Learning
+8,-480.34,Q Learning
+9,-486.42,Q Learning
+10,-487.55,Q Learning
+11,-483.29,Q Learning
+12,-465.49,Q Learning
+13,-460.83,Q Learning
+14,-492.18,Q Learning
+15,-418.19,Q Learning
+16,-425.56,Q Learning
+17,-390.7,Q Learning
+18,-418.09,Q Learning
+19,-352.15,Q Learning
