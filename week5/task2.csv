@@ -1,0 +1,151 @@
+epoch,reward,type
+0,-500.0,Hard
+100,-154.44,Hard
+200,-101.87,Hard
+300,-94.45,Hard
+400,-93.89,Hard
+500,-107.9,Hard
+600,-86.31,Hard
+700,-90.46,Hard
+800,-100.62,Hard
+900,-103.22,Hard
+1000,-87.06,Hard
+1100,-87.32,Hard
+1200,-89.5,Hard
+1300,-90.32,Hard
+1400,-83.23,Hard
+1500,-85.02,Hard
+1600,-98.4,Hard
+1700,-88.78,Hard
+1800,-85.88,Hard
+1900,-94.54,Hard
+2000,-97.18,Hard
+2100,-85.89,Hard
+2200,-86.05,Hard
+2300,-91.3,Hard
+2400,-87.4,Hard
+2500,-87.73,Hard
+2600,-93.7,Hard
+2700,-86.76,Hard
+2800,-94.14,Hard
+2900,-92.62,Hard
+3000,-89.71,Hard
+3100,-86.16,Hard
+3200,-90.42,Hard
+3300,-83.41,Hard
+3400,-85.11,Hard
+3500,-87.17,Hard
+3600,-87.11,Hard
+3700,-87.05,Hard
+3800,-86.66,Hard
+3900,-88.58,Hard
+4000,-92.5,Hard
+4100,-84.92,Hard
+4200,-88.69,Hard
+4300,-86.89,Hard
+4400,-90.08,Hard
+4500,-90.92,Hard
+4600,-85.53,Hard
+4700,-83.71,Hard
+4800,-86.46,Hard
+4900,-89.69,Hard
+0,-500.0,Soft
+100,-101.91,Soft
+200,-93.51,Soft
+300,-90.97,Soft
+400,-83.6,Soft
+500,-89.25,Soft
+600,-84.7,Soft
+700,-87.06,Soft
+800,-86.04,Soft
+900,-88.38,Soft
+1000,-83.01,Soft
+1100,-94.32,Soft
+1200,-85.37,Soft
+1300,-84.98,Soft
+1400,-85.44,Soft
+1500,-82.21,Soft
+1600,-83.21,Soft
+1700,-87.9,Soft
+1800,-81.24,Soft
+1900,-77.9,Soft
+2000,-81.98,Soft
+2100,-82.96,Soft
+2200,-81.62,Soft
+2300,-83.64,Soft
+2400,-83.15,Soft
+2500,-87.18,Soft
+2600,-87.11,Soft
+2700,-85.31,Soft
+2800,-82.36,Soft
+2900,-87.3,Soft
+3000,-88.46,Soft
+3100,-86.04,Soft
+3200,-81.32,Soft
+3300,-86.0,Soft
+3400,-82.32,Soft
+3500,-86.56,Soft
+3600,-89.16,Soft
+3700,-84.66,Soft
+3800,-83.65,Soft
+3900,-88.26,Soft
+4000,-88.53,Soft
+4100,-88.68,Soft
+4200,-82.82,Soft
+4300,-85.18,Soft
+4400,-85.19,Soft
+4500,-86.53,Soft
+4600,-83.26,Soft
+4700,-87.32,Soft
+4800,-87.55,Soft
+4900,-87.65,Soft
+0,-499.97,Double DQN
+100,-103.44,Double DQN
+200,-92.28,Double DQN
+300,-95.86,Double DQN
+400,-91.04,Double DQN
+500,-94.42,Double DQN
+600,-88.62,Double DQN
+700,-89.91,Double DQN
+800,-78.97,Double DQN
+900,-89.06,Double DQN
+1000,-95.59,Double DQN
+1100,-91.48,Double DQN
+1200,-102.56,Double DQN
+1300,-92.68,Double DQN
+1400,-98.12,Double DQN
+1500,-87.53,Double DQN
+1600,-94.06,Double DQN
+1700,-91.83,Double DQN
+1800,-94.07,Double DQN
+1900,-92.68,Double DQN
+2000,-97.03,Double DQN
+2100,-94.11,Double DQN
+2200,-96.75,Double DQN
+2300,-99.1,Double DQN
+2400,-105.82,Double DQN
+2500,-91.11,Double DQN
+2600,-103.39,Double DQN
+2700,-98.33,Double DQN
+2800,-90.83,Double DQN
+2900,-87.09,Double DQN
+3000,-87.9,Double DQN
+3100,-83.38,Double DQN
+3200,-84.51,Double DQN
+3300,-90.9,Double DQN
+3400,-96.38,Double DQN
+3500,-80.36,Double DQN
+3600,-81.54,Double DQN
+3700,-80.47,Double DQN
+3800,-87.97,Double DQN
+3900,-81.52,Double DQN
+4000,-85.17,Double DQN
+4100,-83.05,Double DQN
+4200,-89.5,Double DQN
+4300,-85.09,Double DQN
+4400,-85.31,Double DQN
+4500,-94.25,Double DQN
+4600,-88.14,Double DQN
+4700,-87.47,Double DQN
+4800,-90.97,Double DQN
+4900,-89.71,Double DQN
